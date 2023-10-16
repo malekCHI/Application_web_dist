@@ -1,0 +1,45 @@
+<div class="collapse navbar-collapse hover-dropdown font-14 ml-auto" id="h6-info">
+    <ul class="navbar-nav ml-auto  align-items-center" style="margin-right: 130px;">
+
+
+        <li class="nav-item" [routerLinkActive]="['active']">
+            <a class="nav-link" routerLink="/">
+                Accueil
+            </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+            <a class="nav-link" routerLink="/about">
+                À Propos
+            </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+            <a class="nav-link" routerLink="#">
+                Administration
+            </a>
+        </li>
+
+        <li class="nav-item dropdown show" [routerLinkActive]="['active']">
+            <a class="nav-link" routerLink="/about">
+                Formation
+            </a>
+            <div class="dropdown-menu" style="margin-top: -30px;" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" >Cours</a>
+                <a class="dropdown-item" >Examens</a>
+            </div>
+                       
+        </li>
+        
+        <li class="nav-item" [routerLinkActive]="['active']">
+            <a class="nav-link" routerLink="/about">
+                Événements
+            </a>
+        </li>
+       
+    </ul>
+    <div >
+        <a class="btn btn-danger-gradiant font-14" target="_blank" href="https://www.wrappixel.com/free-wrapkit-angular-blog">
+            Réclamer </a>
+        
+    </div>
+
+</div>
