@@ -118,7 +118,6 @@
       }
     }
   },
-  "defaultProject": "blogApp",
   "cli": {
     "analytics": "e2aa321f-2446-44f3-bba5-6d962cf46c7b"
   }
