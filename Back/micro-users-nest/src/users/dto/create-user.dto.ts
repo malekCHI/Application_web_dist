@@ -37,8 +37,5 @@ export class CreateUserDto {
   role: UserRole;
   @IsNotEmpty()
   verified: boolean;
-  @IsString()
-  @MinLength(4)
-  @MaxLength(20)
-  matricule: string;
+  
 }
