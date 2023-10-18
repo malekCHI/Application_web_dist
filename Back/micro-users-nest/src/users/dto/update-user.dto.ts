@@ -10,7 +10,7 @@ import {
   IsDate,
 } from 'class-validator';
 import { UserRole } from '../user-roles';
-export class CreateUserDto {
+export class UpdateUserDto {
   @IsNotEmpty()
   @Length(3, 20, { message: 'incorrect lenght' })
   userName: string;
