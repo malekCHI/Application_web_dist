@@ -107,7 +107,7 @@ function generateRandomMatricule(): string {
   return matricule;
 }
 async function sendEmail(email: string, matricule: string) {
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'benmohamedmariam04@gmail.com',
@@ -115,7 +115,7 @@ async function sendEmail(email: string, matricule: string) {
     },
   });
 
-  let info = await transporter.sendMail({
+  const info = await transporter.sendMail({
     from: '"Mariam" benmohamedmariam04@gmail.com',
     to: email,
     subject: 'Matricule Information',
