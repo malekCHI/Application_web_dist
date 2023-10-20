@@ -12,6 +12,7 @@ export class UsersRepository {
     return this.userModel.findOne(userFilterQuery);
   }
 
+
   async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {
     return this.userModel.find(usersFilterQuery);
   }
@@ -28,5 +29,12 @@ export class UsersRepository {
     return this.userModel.findOneAndUpdate(userFilterQuery, user, {
       new: true,
     });
+  }
+
+
+  async findOneAndDelete(
+    userFilterQuery: FilterQuery<User>,
+  ): Promise<User> {
+    return this.userModel.remove(userFilterQuery);
   }
 }
