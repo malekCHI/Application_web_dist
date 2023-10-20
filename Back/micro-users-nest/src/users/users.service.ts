@@ -12,6 +12,8 @@ import { UserRole } from './user-roles';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';
+import { AuthUser } from "./response/auth-user";
+
 
 @Injectable()
 export class UsersService {
@@ -70,6 +72,25 @@ export class UsersService {
       }
     }
   }
+
+
+  async authenticateUser(userName: string, password: string): Promise<AuthUser> {
+    const user = await this.usersRepository.findOne({ userName });
+  
+    if (user) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+  
+      if (isPasswordValid) {
+        return {
+          user,
+          message: 'Authentication successful'
+        };      
+      }
+    }
+  
+    throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
+  }
+  
 
   async login(username: string, password: string): Promise<User> {
     const user = await this.usersRepository.findOnebyU(username);
