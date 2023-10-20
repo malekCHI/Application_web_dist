@@ -12,6 +12,12 @@ export class UsersRepository {
     return this.userModel.findOne(userFilterQuery);
   }
 
+  async findOnebyU(username: string): Promise<User | undefined> {
+    return this.userModel.findOne({ userName: username }).exec();
+  }
+  async findOnebyEmail(mail: string): Promise<User | undefined> {
+    return this.userModel.findOne({ email: mail }).exec();
+  }
 
   async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {
     return this.userModel.find(usersFilterQuery);
@@ -31,10 +37,7 @@ export class UsersRepository {
     });
   }
 
-
-  async findOneAndDelete(
-    userFilterQuery: FilterQuery<User>,
-  ): Promise<User> {
+  async findOneAndDelete(userFilterQuery: FilterQuery<User>): Promise<User> {
     return this.userModel.remove(userFilterQuery);
   }
 }

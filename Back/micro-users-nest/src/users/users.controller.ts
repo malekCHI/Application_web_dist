@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -12,6 +20,10 @@ export class UsersController {
   @Get(':userId')
   async getUser(@Param('userId') userId: string): Promise<User> {
     return this.usersService.getUserById(userId);
+  }
+  @Get('/username/:username')
+  async getUserByU(@Param('username') username: string): Promise<User> {
+    return this.usersService.getUserByU(username);
   }
   @Get()
   async getUsers(): Promise<User[]> {
@@ -40,15 +52,15 @@ export class UsersController {
   ): Promise<User> {
     return this.usersService.updateUser(userId, updateUserDto);
   }
-  
+
   @Delete(':userId')
-  async deleteUser(
-    @Param('userId') userId: string,
-  ): Promise<User> {
+  async deleteUser(@Param('userId') userId: string): Promise<User> {
     return this.usersService.deleteUser(userId);
   }
   @Post('login')
-  async login(@Body() loginDto: { username: string; password: string }): Promise<User> {
+  async login(
+    @Body() loginDto: { username: string; password: string },
+  ): Promise<User> {
     const { username, password } = loginDto;
     return this.usersService.login(username, password);
   }
