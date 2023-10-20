@@ -13,10 +13,12 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';
 import { AuthUser } from "./response/auth-user";
+import axios from 'axios';
 
 
 @Injectable()
 export class UsersService {
+
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async getUserById(userId: string): Promise<User> {
@@ -26,9 +28,25 @@ export class UsersService {
     return this.usersRepository.findOnebyU(username);
   }
 
-  async getUsers(): Promise<User[]> {
-    return this.usersRepository.find({});
+  
+    async getUsers(): Promise<User[]> {
+    return this.usersRepository.find({});}
+    
+
+ /* async getUsers(): Promise<User[]> {
+    return this.usersRepository.find({headers: {
+      'Authorization': `Bearer ${this.getTOKEN()}`,
+      'Content-type':'application/json'
+
+    }});
   }
+
+  public getTOKEN():string{
+    const token=this.oauthService.getAccessToken();
+
+
+   return token;
+  }*/
 
   async createUser(
     userName: string,

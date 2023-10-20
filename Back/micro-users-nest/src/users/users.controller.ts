@@ -8,6 +8,8 @@ import {
   Param,
   Patch,
   Post,
+  Req,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -24,11 +26,11 @@ import {
 } from 'nest-keycloak-connect';
 
 @Controller('users')
-@Roles({ roles: ['admin'] }) 
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get(':userId')
+  @Roles({roles: ['user'] })
   async getUser(@Param('userId') userId: string): Promise<User> {
     return this.usersService.getUserById(userId);
   }
@@ -36,10 +38,13 @@ export class UsersController {
   async getUserByU(@Param('username') username: string): Promise<User> {
     return this.usersService.getUserByU(username);
   }
-  @Get()
+ @Get()
+ @Roles({roles: ['admin'] })
   async getUsers(): Promise<User[]> {
     return this.usersService.getUsers();
+
   }
+
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
@@ -88,3 +93,7 @@ async loginUser(@Body() loginUserDto: CreateUserDto): Promise<AuthUser> {
     return this.usersService.login(username, password);
   }*/
 }
+function ApiOkResponse(arg0: { type: any[]; }): (target: UsersController, propertyKey: "getUsers", descriptor: TypedPropertyDescriptor<() => Promise<User[]>>) => void | TypedPropertyDescriptor<() => Promise<User[]>> {
+  throw new Error('Function not implemented.');
+}
+
