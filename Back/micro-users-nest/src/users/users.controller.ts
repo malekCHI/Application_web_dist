@@ -8,7 +8,6 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -16,15 +15,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 import { AuthUser } from './response/auth-user';
-import {
-  AuthGuard,
-  Public,
-  Roles,
-  Unprotected,
-} from 'nest-keycloak-connect';
+import { Roles } from 'nest-keycloak-connect';
 
 @Controller('users')
-@Roles({ roles: ['admin'] }) 
+@Roles({ roles: ['admin'] })
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -70,15 +64,15 @@ export class UsersController {
   }
 
   @Post('login')
- // @UseGuards(AuthGuard)
-async loginUser(@Body() loginUserDto: CreateUserDto): Promise<AuthUser> {
-  const { userName, password } = loginUserDto;
-  try {
-    return await this.usersService.authenticateUser(userName, password);
-  } catch (error) {
-    throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+  // @UseGuards(AuthGuard)
+  async loginUser(@Body() loginUserDto: CreateUserDto): Promise<AuthUser> {
+    const { userName, password } = loginUserDto;
+    try {
+      return await this.usersService.authenticateUser(userName, password);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+    }
   }
-}
 
   /*@Post('login')
   async login(
