@@ -30,7 +30,9 @@ export class UsersController {
   async getUserByU(@Param('username') username: string): Promise<User> {
     return this.usersService.getUserByU(username);
   }
+
   @Get()
+  @Roles({ roles: ['admin'] })
   async getUsers(): Promise<User[]> {
     return this.usersService.getUsers();
   }
