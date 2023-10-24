@@ -1,5 +1,5 @@
 {
-  "name": "micro-users",
+  "name": "user_ms",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -29,6 +29,7 @@
     "bcrypt": "^5.1.1",
     "class-validator": "^0.14.0",
     "express-session": "^1.17.3",
+    "keycloak-admin": "^1.14.22",
     "keycloak-connect": "^22.0.4",
     "mongoose": "^6.2.2",
     "nest-keycloak-connect": "^1.9.2",

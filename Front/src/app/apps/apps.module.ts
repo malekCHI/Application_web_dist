@@ -10,7 +10,7 @@ import { AppsComponent } from './apps.component';
 import { BlogComponent } from './blog/blog.component';
 import { AboutComponent } from './about/about.component';
 import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
-
+import { RouterModule } from '@angular/router';
 import { ServiceblogService } from './blog/blog-service.service';
 import { RelayOnComponent } from './about/About-Components/relay-on/relay-on.component';
 import { TopContentComponent } from './about/About-Components/top-content/top-content.component';
@@ -20,10 +20,12 @@ import { FullComponent } from './layout/full/full.component';
 import { BannerComponent } from './shared/banner/banner.component';
 import { BannerNavigationComponent } from './shared/banner-navigation/banner-navigation.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { EvenementComponent } from './evenement/evenement.component';
 
 @NgModule({
   declarations: [
     AppsComponent,
+    
     BlogComponent,
     AboutComponent,
     BlogDetailComponent,
@@ -34,6 +36,7 @@ import { FooterComponent } from './shared/footer/footer.component';
     // BannerContentComponent,
     BannerNavigationComponent,
     FooterComponent,
+    EvenementComponent,
   ],
   imports: [
     CommonModule,

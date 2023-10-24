@@ -10,7 +10,7 @@ export class RelayOnComponent implements OnInit {
   relayOn = [
     {
       icon: 'sl-icon-target text-info-gradiant',
-      field: 'Retargeting Market',
+      field: 'youssef event Market',
       fieldText: 'You can relay on our amazing features list and also our customer services will be great experience.'
     },
     {

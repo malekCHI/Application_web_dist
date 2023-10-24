@@ -1,6 +1,6 @@
-import { User } from "../schemas/user.schema";
+import { User } from '../schemas/user.schema';
 
 export interface AuthUser {
-    user: User;
-    message: string;
+  user: User;
+  message: string;
 }

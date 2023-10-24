@@ -4,24 +4,33 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthGuard, KeycloakConnectModule, ResourceGuard, RoleGuard, TokenValidation } from 'nest-keycloak-connect';
+import {
+  AuthGuard,
+  KeycloakConnectModule,
+  ResourceGuard,
+  RoleGuard,
+} from 'nest-keycloak-connect';
 import { APP_GUARD } from '@nestjs/core';
+import { UserSchema } from './users/schemas/user.schema';
 
 @Module({
   imports: [
     KeycloakConnectModule.register({
-      authServerUrl: 'http://localhost:8180/auth',
+      authServerUrl: 'http://127.0.0.1:8180/auth',
       realm: 'JobBoardKeycloack',
-      clientId: 'micro-users',
-      secret: '89cb9e07-9d26-4459-aef7-9c0ea648d7ef',
+      clientId: 'user_ms',
+      secret: '79eef0eb-2ab8-47f9-9bb3-f74b8010847d',
     }),
-    MongooseModule.forRoot('mongodb://localhost/userdb'),
+    MongooseModule.forRoot(
+      'mongodb://127.0.0.1:27017/userdb?directConnection=true',
+    ),
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     AuthModule,
     UsersModule,
-    
   ],
   controllers: [AppController],
-  providers: [AppService,
+  providers: [
+    AppService,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
@@ -34,6 +43,7 @@ import { APP_GUARD } from '@nestjs/core';
     {
       provide: APP_GUARD,
       useClass: RoleGuard,
-    },],
+    },
+  ],
 })
-export class AppModule { }
+export class AppModule {}
