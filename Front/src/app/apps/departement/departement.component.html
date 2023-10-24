@@ -1,0 +1,119 @@
+<div
+  class="static-slider-head"
+  style="background-image: url(assets/images/landingpage/elearning.jpg)"
+>
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-lg-9 col-md-6 align-self-center text-center no-trans">
+        <h1 class="title">Departments</h1>
+        <h5 class="subtitle op-5">aqra 3a rohek</h5>
+
+        <a
+          href="https://www.wrappixel.com/free-wrapkit-angular-blog"
+          class="btn btn-md m-t-30 btn-success-gradiant font-14"
+          target="blank"
+          >Admin Vue</a
+        >
+      </div>
+      <!-- Column -->
+    </div>
+  </div>
+</div>
+
+<!-- Row  -->
+<div class="container spacer">
+  <div class="row justify-content-center">
+    <!-- Column -->
+    <div class="col-md-8 no-trans text-center">
+      <h2 class="title">Our Departments</h2>
+      <h6 class="subtitle">
+        You can relay on our amazing features list and also our customer
+        services will be great experience for you without doubt and in no-time
+      </h6>
+    </div>
+    <!-- Column -->
+  </div>
+  <div class="row m-t-40 justify-content-center">
+    <!-- Column -->
+    <div
+      class="col-md-8 no-trans border-bottom mb-4"
+      *ngFor="let d of departements"
+    >
+      <div class="card" data-aos="flip-left" data-aos-duration="1200">
+        <div class="row">
+          <div class="col-md-2 no-trans">
+            <h6 class="card-subtitle font-12 mt-1">Head departement :</h6>
+            <span class="text-dark font-medium">{{ d.head }}</span>
+          </div>
+          <div class="col-md-7 no-trans">
+            <h5 class="font-medium cursor-pointer">
+              {{ d.name }}
+            </h5>
+            <p class="m-t-20">
+              {{ d.description }}
+            </p>
+          </div>
+          <div class="col-md-3 no-trans">
+            <a
+              class="linking font-medium text-themecolor m-t-10 cursor-pointer"
+            >
+              <span>Show Detail</span>
+              <i class="ti-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br /><br /><br />
+  <a
+    (click)="toggleDepartmentForm()"
+    class="btn btn-md m-t-30 btn-success-gradiant font-14"
+    style="margin-left: 450px"
+    target="blank"
+    >Add Department</a
+  >
+  <!-- Form for adding a department (initially hidden) -->
+  <div class="container" *ngIf="showDepartmentForm">
+    <form  #departmentForm="ngForm">
+      <div class="form-group">
+        <label for="name" style="font-weight: bold;">Department Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="departement.name" [ngModelOptions]="{standalone : true}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="name" style="font-weight: bold;"> Head Department:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="departement.head" [ngModelOptions]="{standalone : true}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="description" style="font-weight: bold;">Description:</label>
+        <textarea
+          class="form-control"
+          [(ngModel)]="departement.description" [ngModelOptions]="{standalone : true}"
+          required
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label style="font-weight: bold;">Active:</label><br>
+        <label >
+          <input type="radio" name="isActive" [(ngModel)]="departement.active" [ngModelOptions]="{standalone : true}" [value]="true" style="margin-left: 30;"> Available
+        </label>
+        <label >
+          <input type="radio" name="isActive" [(ngModel)]="departement.active" [ngModelOptions]="{standalone : true}" [value]="false" style="margin-left: 30;"> Unavailable
+        </label>
+      </div>
+      <button type="submit" (click)="addDepartment(departement)" class="btn btn-primary"style="margin-left: 450px;" >Add Department</button>
+    </form>
+  </div>
+</div>

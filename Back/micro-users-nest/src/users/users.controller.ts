@@ -8,9 +8,7 @@ import {
   Param,
   Patch,
   Post,
-  Req,
-  UnauthorizedException,
-  UseGuards,
+  ExecutionContext,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -18,19 +16,14 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 import { AuthUser } from './response/auth-user';
-import {
-  AuthGuard,
-  Public,
-  Roles,
-  Unprotected,
-} from 'nest-keycloak-connect';
+import { Roles } from 'nest-keycloak-connect';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get(':userId')
-  @Roles({roles: ['user'] })
+  @Roles({ roles: ['user'] })
   async getUser(@Param('userId') userId: string): Promise<User> {
     return this.usersService.getUserById(userId);
   }
@@ -38,15 +31,14 @@ export class UsersController {
   async getUserByU(@Param('username') username: string): Promise<User> {
     return this.usersService.getUserByU(username);
   }
- @Get()
- @Roles({roles: ['admin'] })
+  @Get()
+  @Roles({ roles: ['admin'] })
   async getUsers(): Promise<User[]> {
     return this.usersService.getUsers();
-
   }
 
-
   @Post()
+  @Roles({ roles: ['admin'] })
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.createUser(
       createUserDto.userName,
@@ -75,15 +67,19 @@ export class UsersController {
   }
 
   @Post('login')
- // @UseGuards(AuthGuard)
-async loginUser(@Body() loginUserDto: CreateUserDto): Promise<AuthUser> {
-  const { userName, password } = loginUserDto;
-  try {
-    return await this.usersService.authenticateUser(userName, password);
-  } catch (error) {
-    throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+  @Roles({ roles: ['admin'] })
+  async loginUser(@Body() loginUserDto: CreateUserDto): Promise<AuthUser> {
+    const { userName, password } = loginUserDto;
+    try {
+      return await this.usersService.authenticateUser(userName, password);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+    }
   }
-}
+  @Get('current')
+  getCurrentUser(context: ExecutionContext) {
+    return this.usersService.getCurrentUser(context);
+  }
 
   /*@Post('login')
   async login(
@@ -92,8 +88,13 @@ async loginUser(@Body() loginUserDto: CreateUserDto): Promise<AuthUser> {
     const { username, password } = loginDto;
     return this.usersService.login(username, password);
   }*/
-}
-function ApiOkResponse(arg0: { type: any[]; }): (target: UsersController, propertyKey: "getUsers", descriptor: TypedPropertyDescriptor<() => Promise<User[]>>) => void | TypedPropertyDescriptor<() => Promise<User[]>> {
-  throw new Error('Function not implemented.');
-}
 
+  /*function ApiOkFResponse(arg0: {
+  type: any[];
+}): (
+  target: UsersController,
+  propertyKey: 'getUsers',
+  descriptor: TypedPropertyDescriptor<() => Promise<User[]>>,
+) => void | TypedPropertyDescriptor<() => Promise<User[]>> {
+  throw new Error('Function not implemented.');*/
+}

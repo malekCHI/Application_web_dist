@@ -7,6 +7,8 @@ import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 
 
 import { FullComponent } from './layout/full/full.component';
+import { DepartementComponent } from './departement/departement.component';
+import { EvenementComponent } from './evenement/evenement.component';
 
 
 const routes: Routes = [
@@ -17,6 +19,8 @@ const routes: Routes = [
       { path: '', component: BlogComponent },
       { path: 'blogDetail/:id', component: BlogDetailComponent },
       { path: 'about', component: AboutComponent },
+      { path: 'departement', component: DepartementComponent },
+      { path: 'evenement', component: EvenementComponent },
     ]
   }
 ];

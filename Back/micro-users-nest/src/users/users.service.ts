@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
+  ExecutionContext,
 } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -12,13 +13,10 @@ import { UserRole } from './user-roles';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';
-import { AuthUser } from "./response/auth-user";
-import axios from 'axios';
-
+import { AuthUser } from './response/auth-user';
 
 @Injectable()
 export class UsersService {
-
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async getUserById(userId: string): Promise<User> {
@@ -28,12 +26,11 @@ export class UsersService {
     return this.usersRepository.findOnebyU(username);
   }
 
-  
-    async getUsers(): Promise<User[]> {
-    return this.usersRepository.find({});}
-    
+  async getUsers(): Promise<User[]> {
+    return this.usersRepository.find({});
+  }
 
- /* async getUsers(): Promise<User[]> {
+  /* async getUsers(): Promise<User[]> {
     return this.usersRepository.find({headers: {
       'Authorization': `Bearer ${this.getTOKEN()}`,
       'Content-type':'application/json'
@@ -70,6 +67,7 @@ export class UsersService {
         const hashedPassword = await bcrypt.hash(password, 10);
         const matricule = generateRandomMatricule();
         await sendEmail(email, matricule);
+
         return this.usersRepository.create({
           userId: uuidv4(),
           userName,
@@ -90,25 +88,29 @@ export class UsersService {
       }
     }
   }
-
-
-  async authenticateUser(userName: string, password: string): Promise<AuthUser> {
+  getCurrentUser(context: ExecutionContext) {
+    const request = context.switchToHttp().getRequest();
+    return request.user;
+  }
+  async authenticateUser(
+    userName: string,
+    password: string,
+  ): Promise<AuthUser> {
     const user = await this.usersRepository.findOne({ userName });
-  
+
     if (user) {
       const isPasswordValid = await bcrypt.compare(password, user.password);
-  
+
       if (isPasswordValid) {
         return {
           user,
-          message: 'Authentication successful'
-        };      
+          message: 'Authentication successful',
+        };
       }
     }
-  
+
     throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
   }
-  
 
   async login(username: string, password: string): Promise<User> {
     const user = await this.usersRepository.findOnebyU(username);
@@ -134,6 +136,7 @@ export class UsersService {
     return this.usersRepository.findOneAndDelete({ userId });
   }
 }
+
 function generateRandomMatricule(): string {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let matricule = '';
@@ -146,7 +149,7 @@ function generateRandomMatricule(): string {
   return matricule;
 }
 async function sendEmail(email: string, matricule: string) {
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'benmohamedmariam04@gmail.com',
@@ -154,7 +157,7 @@ async function sendEmail(email: string, matricule: string) {
     },
   });
 
-  let info = await transporter.sendMail({
+  const info = await transporter.sendMail({
     from: '"Mariam" benmohamedmariam04@gmail.com',
     to: email,
     subject: 'Matricule Information',
