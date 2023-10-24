@@ -1,7 +1,11 @@
 # compiled output
 /dist
 /node_modules
-
+../data/
+../docker-compose.yml
+../eureka_server/
+../micro-users-nest/.dockerignore
+../micro-users-nest/Dockerfile
 # Logs
 logs
 *.log

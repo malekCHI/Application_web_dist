@@ -1,0 +1,21 @@
+version: "24.0.6"
+services:
+  nestback:
+    image: nestback
+    build: ./micro-users-nest
+    ports:
+      - "4000:3000"
+
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/userdb # Update your database name
+
+  # MongoDB
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
