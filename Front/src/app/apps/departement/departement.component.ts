@@ -26,6 +26,7 @@ export class DepartementComponent implements OnInit {
       stats: 0,
       head: "",
       description : ""
+
     }
    }
 
