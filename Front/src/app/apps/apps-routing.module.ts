@@ -16,6 +16,8 @@ import { QuestionsComponent } from './questions/questions.component';
 import { ListQuestionComponent } from './questions/list/list-question.component';
 import { StartComponent } from './exams/quiz/start/start.component';
 
+import { PostsListComponent } from '../posts-list/posts-list.component';
+import { PostDetailsComponent } from '../post-details/post-details.component';
 
 
 const routes: Routes = [
@@ -34,6 +36,8 @@ const routes: Routes = [
       { path: 'question-add', component: QuestionsComponent },
       { path: 'question-list', component: ListQuestionComponent },
       { path: 'quiz-start', component: StartComponent },
+      { path: 'post', component: PostsListComponent },
+      { path: 'post/:id', component: PostDetailsComponent },
 
 
     ]

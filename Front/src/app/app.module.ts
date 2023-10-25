@@ -9,8 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DepartementComponent } from './apps/departement/departement.component';
+
 import { ExamsComponent } from './apps/exams/exams.component';
 
+
+
+import { PostsListComponent } from './posts-list/posts-list.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
 
 
 
@@ -21,6 +26,8 @@ import { ExamsComponent } from './apps/exams/exams.component';
     AppComponent,
     DepartementComponent,
     ExamsComponent,
+    PostsListComponent,
+    PostDetailsComponent,
   ],
   imports: [
     BrowserModule,
