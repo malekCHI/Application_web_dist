@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DepartementComponent } from './apps/departement/departement.component';
+import { ExamsComponent } from './apps/exams/exams.component';
 
 
 
@@ -19,6 +20,7 @@ import { DepartementComponent } from './apps/departement/departement.component';
   declarations: [
     AppComponent,
     DepartementComponent,
+    ExamsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,281 @@
+<div
+  class="static-slider-head"
+  style="background-image: url(assets/images/landingpage/elearning.jpg)"
+>
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-lg-9 col-md-6 align-self-center text-center no-trans">
+        <h1 class="title">Examens</h1>
+        <h5 class="subtitle op-5">Quiz ou Certification</h5>
+
+        <a
+          href="#"
+          class="btn btn-md m-t-30 btn-success-gradiant font-14"
+          target="blank"
+          >Welcome</a
+        >
+      </div>
+      <!-- Column -->
+    </div>
+  </div>
+</div>
+
+<div class="container spacer" *ngIf="showPage">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-primary text-white h-80" style="border-radius: 10px;">
+                <img src="assets/images/background/quiz.webp" (click)="changeVue()" class="card-img-top img-fluid" style="height: 500px;"  alt="Image 1">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><strong>Examen</strong></h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-success text-white h-80" style="border-radius: 10px;">
+                <img src="assets/images/background/evaluation.jpeg" class="card-img-top img-fluid" style="height: 500px;"  alt="Image 2">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><strong>Question</strong></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container spacer" *ngIf="showQuiz">
+  <button type="button" class="btn btn-secondary" style="margin-left: 91%;" (click)="showQuiz = false">retour</button>
+
+  <form #examForm="ngForm" (ngSubmit)="examForm.form.valid && addExam()" >
+    <div class="form-group">
+      <label for="title" style="font-weight: bold;">Titre de l'examen:</label>
+      <input
+        type="text"
+        class="form-control {{examForm.submitted && title.invalid? 'is-invalid': ''}} "
+        [(ngModel)]="exam.title" #title="ngModel"
+        name="title"
+        required
+      />
+      <div class="col-md-3 "></div>
+          <div class="invalid-feedback">
+          Titre requis
+          </div>
+    </div>
+    <div class="form-group">
+      <label for="examType" style="font-weight: bold;">Type d'examen:</label>
+      <div class="form-group">
+        <select class="custom-select form-control form-control-custom {{examForm.submitted && examType.invalid? 'is-invalid': ''}}"
+          ngModel name="examType" #examType="ngModel" [(ngModel)]="exam.examType" required nice-select >
+              <option value="QUIZ">Quiz</option>
+              <option value="CERTIFICAT">Certification</option>
+          </select>
+          <div class="col-md-3 "></div>
+          <div class="invalid-feedback">
+          Type de l'examen requis
+          </div>
+  
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description" style="font-weight: bold;">Description:</label>
+      <textarea
+        class="form-control {{examForm.submitted && description.invalid? 'is-invalid': ''}}"
+        [(ngModel)]="exam.description"
+        name="description" #description="ngModel"
+        required 
+      ></textarea>
+      <div class="col-md-3 "></div>
+          <div class="invalid-feedback">
+          Description requise
+          </div>
+    </div>
+    <div class="form-group">
+      <label for="duration" style="font-weight: bold;">Durée (en minutes):</label>
+      <input
+        type="number"
+        class="form-control {{examForm.submitted && examType.invalid? 'is-invalid': ''}}"
+        [(ngModel)]="exam.duration" #duration="ngModel"
+        name="duration"
+        required
+      />
+      <div class="col-md-3 "></div>
+          <div class="invalid-feedback">
+          Durée requise
+          </div>
+    </div>
+   <!--<div class="form-group">
+      <label for="score" style="font-weight: bold;">Score:</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="exam.score"
+        name="score"
+        required
+      />
+    </div>-->
+    <div class="form-group">
+      <label for="maxAttempts" style="font-weight: bold;">Tentatives maximales:</label>
+      <input
+        type="number"
+        class="form-control {{examForm.submitted && maxAttempts.invalid? 'is-invalid': ''}}"
+        [(ngModel)]="exam.maxAttempts" #maxAttempts="ngModel"
+        name="maxAttempts"
+        required
+      />
+      <div class="col-md-3 "></div>
+          <div class="invalid-feedback">
+            Tentatives maximales requise
+          </div>
+    </div>
+    <div class="form-group">
+      <label for="noteMinRequis" style="font-weight: bold;">Note minimale requise:</label>
+      <input
+        type="number"
+        class="form-control {{examForm.submitted && noteMinRequis.invalid? 'is-invalid': ''}}"
+        [(ngModel)]="exam.noteMinRequis"
+        name="noteMinRequis" #noteMinRequis="ngModel"
+        required
+      />
+      <div class="col-md-3 "></div>
+          <div class="invalid-feedback">
+            Note minimale requise
+          </div>
+    </div>
+    <div class="form-group" *ngIf="exam.examType === 'CERTIFICAT'">
+      <label for="price" style="font-weight: bold;">Prix:</label>
+      <input
+        type="number"
+        class="form-control {{examForm.submitted && price.invalid ? 'is-invalid' : ''}}"
+        [(ngModel)]="exam.price" #price="ngModel"
+        name="price"
+        required
+      />
+      <div class="col-md-3"></div>
+      <div class="invalid-feedback">
+        Prix requis
+      </div>
+    </div>
+    <div class="form-group" *ngIf="exam.examType === 'CERTIFICAT'">
+      <label for="startDate" style="font-weight: bold;">Date de début:</label>
+      <input
+        type="date"
+        class="form-control {{examForm.submitted && startDate.invalid ? 'is-invalid' : ''}}"
+        [(ngModel)]="exam.startDate" #startDate="ngModel"
+        name="startDate"
+        required
+      />
+      <div class="col-md-3"></div>
+      <div class="invalid-feedback">
+        Date de début requise
+      </div>
+    </div>
+    <div class="form-group" *ngIf="exam.examType === 'CERTIFICAT'">
+      <label for="endDate" style="font-weight: bold;">Date de fin:</label>
+      <input
+        type="date"
+        class="form-control {{examForm.submitted && endDate.invalid ? 'is-invalid' : ''}}"
+        [(ngModel)]="exam.endDate" #endDate="ngModel"
+        name="endDate"
+        required
+      />
+      <div class="col-md-3"></div>
+      <div class="invalid-feedback">
+        Date de fin requise
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="margin-left: 450px;">Ajouter l'examen</button>
+  </form>
+</div>
+
+
+<div class="container spacer" *ngIf="showListExam">
+
+  <section class="section-padding bg-light-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="listing-top-heading mb-xl-20">
+                    <h6 class="no-margin text-custom-black">Showing All exams</h6>
+                    <!--<div class="sort-by">
+                        <span class="text-custom-black fs-14 fw-600">Find By</span>
+                        <div class="group-form">
+                            <select class="form-control form-control-custom custom-select" nice-select >
+                                <option value="RESTAURANT">RESTAURANT</option>
+                                <option value="ACADEMIC_HOME">ACADEMIC HOME</option>
+                                <option value="SUBSCRIPTION">SUBSCRIPTION</option>
+                                <option value="RESERVATION">RESERVATION</option>
+                                <option value="FORUM">FORUM</option>
+                            </select>
+                        </div>
+                    </div>-->
+                   <span> <input type="text" class="form-control form-control-custom"   [(ngModel)]="searchQuery" (ngModelChange)="onSearch()" placeholder="Search..."></span>
+                    
+                </div>
+            </div>
+
+           <!--<input [(ngModel)]="selectedItem" [typeahead]="exams" (typeaheadOnSelect)="onItemSelect($event)" />-->
+            <!-- Data -->
+           <div class="col-lg-4 col-md-6" *ngFor="let item of exams">
+
+
+            
+                <div class="exams-list mb-xl-30">
+                    <div class="exams-list-wrapper bx-wrapper">
+                        <div class="image-sec animate-img">
+                            <a routerLink="#" icon="pi pi-pencil" >
+                                <button class="full-width"></button>
+                            </a>
+                        </div>
+                        <div class="exams-list-caption padding-20 bg-custom-white p-relative">
+                            <div class="heading-sec">
+                                <div class="left-side">
+                                    <i class="fas fa-calendar text-gray"></i>
+                                    <div class="title">
+                                        <div class="left-side">
+                                            <span class="price"><small></small>{{item.startDate | date: 'dd/MM/yyyy'}}</span>
+                                        </div>
+                                        <h4 class="fs-16">
+                                            <a routerLink="/exam-details/{{item.idE}}"
+                                                class="text-custom-black">{{item.title}}</a>
+                                                <!--<span class="price"><small>{{item.description}}</small></span>-->
+                                            
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="right-side">
+                                    <span class="price"><small></small>{{item.examType}}</span>
+                                </div>
+                            </div>
+                            <div class="action">
+                                <button routerLink="#" class="btn-second btn-small">View</button>
+                                <span><button pButton icon="fa fa-archive"
+                                class="p-button-rounded p-button-danger p-button-outlined form-control-custom" >Supprimer</button></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+               
+            </div>
+        </div>
+            <!-- Data -->
+        </div>
+    
+        <!--<div class="row">
+            <div class="col-12">
+                <nav class="pagination_layout section-padding-top">
+                    <ul class="pagination justify-content-center">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </ul>
+                </nav>
+            </div>
+        </div>-->
+    </div>
+    
+</section>
+  
+</div>
+
+
+
+

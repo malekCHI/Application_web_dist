@@ -37,6 +37,7 @@ import { EvenementComponent } from './evenement/evenement.component';
     BannerNavigationComponent,
     FooterComponent,
     EvenementComponent,
+    //ExamsComponent,
   ],
   imports: [
     CommonModule,
