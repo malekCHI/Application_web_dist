@@ -1,0 +1,215 @@
+<div
+  class="banner-innerpage"
+  style="background-image: url(assets/images/landingpage/elearning.jpg)"
+>
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-lg-9 col-md-6 no-trans align-self-center text-center">
+        <h1 class="title">Our chapitre for this cours</h1>
+      </div>
+      <!-- Column -->
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- Feature 22  -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- End Feature 22  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Feature 1  -->
+<!-- ============================================================== -->
+<div class="bg-light spacer feature1">
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <div class="col-md-7 text-center no-trans">
+        <h2 class="title">For each student, each class. Real results.</h2>
+        <h6 class="subtitle">
+          We are a non-profit organization with a mission to provide free,
+          quality education for everyone, everywhere.
+        </h6>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Feature 1  -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- Call to action -->
+<!-- ============================================================== -->
+<div class="spacer">
+  <h6 class="text-right mr-4 mb-0">Showing {{ chapitres.length }} Results</h6>
+ <br>
+<div class="row justify-content-end mr-3">
+  <button class="btn btn-outline-primary" (click)="open(mymodal)">
+    Ajouter +
+  </button>
+</div>
+
+  <ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- Default form subscription -->
+      <form #myForm="ngForm" class="text-center border border-light p-5">
+        <p class="h4 mb-4">Ajouter specialité</p>
+
+        <!-- Name -->
+        <input
+          class="form-control"
+          type="text"
+          name="name"
+          class="form-control mb-4"
+          [(ngModel)]="chapitre.name"
+          #name="ngModel"
+          required
+          min="1"
+          placeholder="Name"
+        />
+        <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+          <div *ngIf="name.errors?.['required']">name is required</div>
+          <div *ngIf="name.errors?.['minlength']">
+            name must have at least 3 characters
+          </div>
+        </div>
+        <!-- Email -->
+        <input
+          class="form-control"
+          type="text"
+          name="description"
+          class="form-control mb-4"
+          [(ngModel)]="chapitre.description"
+          #description="ngModel"
+          required
+          min="1"
+          placeholder="Description"
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="description.touched && description.invalid"
+        >
+          <div *ngIf="description.errors?.['required']">
+            description is required
+          </div>
+          <div *ngIf="description.errors?.['minlength']">
+            description must have at least 3 characters
+          </div>
+        </div>
+        <input
+          class="form-control"
+          type="text"
+          name="ressource"
+          class="form-control mb-4"
+          [(ngModel)]="chapitre.ressource"
+          #ressource="ngModel"
+          required
+          min="1"
+          placeholder="Ressource"
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="ressource.touched && ressource.invalid"
+        >
+          <div *ngIf="ressource.errors?.['required']">
+            Ressource is required
+          </div>
+          <div *ngIf="description.errors?.['minlength']">
+            ressource must have at least 3 characters
+          </div>
+        </div>
+        <input
+          class="form-control"
+          type="text"
+          name="duree"
+          class="form-control mb-4"
+          [(ngModel)]="chapitre.duree"
+          #duree="ngModel"
+          required
+          min="1"
+          placeholder="Duré"
+        />
+        <div class="alert alert-danger" *ngIf="duree.touched && duree.invalid">
+          <div *ngIf="duree.errors?.['required']">duree is required</div>
+          <div *ngIf="description.errors?.['minlength']">
+            duree must have at least 3 characters
+          </div>
+        </div>
+        <h6>Choose your cours</h6>
+        <select
+          class="browser-default custom-select"
+          [(ngModel)]="selectedcourseId"
+          name="id"
+        >
+          >
+          <option *ngFor="let item of coursItems" [value]="item.id">
+            {{ item.name }}
+          </option>
+        </select>
+      </form>
+      <!-- Default form subscription -->
+    </div>
+    <div class="modal-footer">
+      <button
+        type="submit"
+        class="btn btn-outline-primary"
+        (click)="addchapitre()"
+      >
+        Ajouter
+      </button>
+    </div>
+  </ng-template>
+  <br /><br /><br />
+  <div class="container" *ngFor="let item of chapitres">
+    <ul class="list-unstyled">
+      <li class="media">
+        <div class="media-body">
+          <h5 class="mt-0 mb-1">Chapitre : {{ item.name }}</h5>
+          <span
+            [ngClass]="{
+              'badge badge-danger': !item.completed,
+              'badge badge-success': item.completed
+            }"
+          >
+            {{ item.completed ? "Completed" : "Not Completed" }}
+          </span>
+          <p>À propos de ce chapitre : {{ item.description }}</p>
+          <p class="card-text">Cours : {{ item.cours.name }}</p>
+
+        </div>
+        <button class="btn btn-danger" (click)="deleteChapitre(item.id)">
+          Delete
+        </button>
+
+        <button class="btn btn-outline-info"(click)="markChapitreAsCompleted(item.id)">Mark as Completed</button>
+
+      </li>
+      <div class="col-md-3 no-trans">
+        <a class="linking font-medium text-themecolor m-t-10 cursor-pointer">
+          <span routerLink="/detail-chapitre/{{ item.id }}"
+            >Show Details</span
+          >
+          <i class="ti-arrow-right"></i>
+        </a>
+      </div>
+    </ul>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Call to action -->
+<!-- ============================================================== -->

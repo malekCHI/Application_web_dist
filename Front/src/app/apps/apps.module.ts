@@ -25,11 +25,15 @@ import { DetailsComponent } from './exams/details/details.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { ListQuestionComponent } from './questions/list/list-question.component';
 import { StartComponent } from './exams/quiz/start/start.component';
+import { DetailChapitreComponent } from './detail-chapitre/detail-chapitre.component';
+import { CoursComponent } from './cours/cours.component';
+import { SpecialiteComponent } from './specialite/specialite.component';
+import { ChapitreComponent } from './chapitre/chapitre.component';
 
 @NgModule({
   declarations: [
     AppsComponent,
-    
+
     BlogComponent,
     AboutComponent,
     BlogDetailComponent,
@@ -46,6 +50,10 @@ import { StartComponent } from './exams/quiz/start/start.component';
     QuestionsComponent,
     ListQuestionComponent,
     StartComponent,
+    DetailChapitreComponent,
+    CoursComponent,
+    SpecialiteComponent,
+    ChapitreComponent,
   ],
   imports: [
     CommonModule,

@@ -18,6 +18,10 @@ import { StartComponent } from './exams/quiz/start/start.component';
 
 import { PostsListComponent } from '../posts-list/posts-list.component';
 import { PostDetailsComponent } from '../post-details/post-details.component';
+import { CoursComponent } from './cours/cours.component';
+import { ChapitreComponent } from './chapitre/chapitre.component';
+import { DetailChapitreComponent } from './detail-chapitre/detail-chapitre.component';
+import { SpecialiteComponent } from './specialite/specialite.component';
 
 
 const routes: Routes = [
@@ -30,7 +34,7 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'departement', component: DepartementComponent },
       { path: 'evenement', component: EvenementComponent },
-      { path: 'examen', component: ExamsComponent},
+      { path: 'examen', component: ExamsComponent },
       { path: 'exam-list', component: ListComponent },
       { path: 'detail-exam/:id', component: DetailsComponent },
       { path: 'question-add', component: QuestionsComponent },
@@ -38,10 +42,12 @@ const routes: Routes = [
       { path: 'quiz-start', component: StartComponent },
       { path: 'post', component: PostsListComponent },
       { path: 'post/:id', component: PostDetailsComponent },
-
-
-    ]
-  }
+      { path: 'cours/:id', component: CoursComponent },
+      { path: 'chapitre/:id', component: ChapitreComponent },
+      { path: 'detail-chapitre/:id', component: DetailChapitreComponent },
+      { path: 'specialite', component: SpecialiteComponent },
+    ],
+  },
 ];
 
 @NgModule({
