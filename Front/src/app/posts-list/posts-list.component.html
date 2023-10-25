@@ -1,0 +1,92 @@
+<div
+  class="static-slider-head"
+  style="background-image: url(assets/images/landingpage/elearning.jpg)"
+>
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-lg-9 col-md-6 align-self-center text-center no-trans">
+        <h1 class="title">Departments</h1>
+        <h5 class="subtitle op-5">aqra 3a rohek</h5>
+
+        <a
+          href="https://www.wrappixel.com/free-wrapkit-angular-blog"
+          class="btn btn-md m-t-30 btn-success-gradiant font-14"
+          target="blank"
+          >Admin Vue</a
+        >
+      </div>
+      <!-- Column -->
+    </div>
+  </div>
+</div>
+
+<!-- Row  -->
+<div class="container spacer">
+  <div class="row justify-content-center">
+    <!-- Column -->
+    <div class="col-md-8 no-trans text-center">
+      <h2 class="title">Our Departments</h2>
+      <h6 class="subtitle">
+        You can relay on our amazing features list and also our customer
+        services will be great experience for you without doubt and in no-time
+      </h6>
+    </div>
+    <!-- Column -->
+  </div>
+  <div class="row m-t-40 justify-content-center">
+    <!-- Column -->
+    <div
+      class="col-md-8 no-trans border-bottom mb-4"
+      *ngFor="let d of posts"
+    >
+      <div class="card" data-aos="flip-left" data-aos-duration="1200">
+        <div class="row">
+          <div class="col-md-2 no-trans">
+            <h6 class="card-subtitle font-12 mt-1">Head post :</h6>
+            <span class="text-dark font-medium">{{ d.head }}</span>
+          </div>
+          <div class="col-md-7 no-trans">
+            <h5 class="font-medium cursor-pointer">
+              {{ d.title }}
+            </h5>
+            <p class="m-t-20">
+              {{ d.content }}
+            </p>
+          </div>
+          <div class="col-md-3 no-trans">
+            <a
+              class="linking font-medium text-themecolor m-t-10 cursor-pointer"
+              [routerLink]="['/post', d.id]"
+            >
+              <span>Show Detail</span>
+              <i class="ti-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ... Existing code for listing posts ... -->
+
+<div class="container spacer mt-5">
+  <h4>Add a New Post:</h4>
+  <form [formGroup]="newPostForm" (ngSubmit)="addPost()">
+    <div class="form-group">
+      <input type="text" class="form-control" formControlName="title" placeholder="Post Title" />
+    </div>
+    <div class="form-group">
+      <textarea class="form-control" formControlName="content" rows="5" placeholder="Post Content"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!newPostForm.valid">Add Post</button>
+  </form>
+</div>
+
+  </div>
+  <br /><br /><br />
+  
+ 
+</div>
+
