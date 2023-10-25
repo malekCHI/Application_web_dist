@@ -1,0 +1,88 @@
+<div
+  class="static-slider-head"
+  style="background-image: url(assets/images/landingpage/elearning.jpg)"
+>
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-lg-9 col-md-6 align-self-center text-center no-trans">
+        <h1 class="texte">Questions</h1>
+        <h5 class="subtexte op-5">Quiz ou Certification</h5>
+
+        <a
+          href="#"
+          class="btn btn-md m-t-30 btn-success-gradiant font-14"
+          target="blank"
+          >Welcome</a
+        >
+      </div>
+      <!-- Column -->
+    </div>
+  </div>
+</div>
+
+<div class="container spacer">
+  <div class="d-flex justify-content-between">
+    <button type="button" class="btn btn-secondary" routerLink="/examen">retour</button>
+    <button type="button" class="btn btn-secondary" routerLink="/question-list">Voir les questionens</button>
+  </div>
+  <form #questionForm="ngForm" (ngSubmit)="questionForm.form.valid && addQuestion()" >
+    <div class="form-group">
+      <label for="texte" style="font-weight: bold;">Question:</label>
+      <input
+        type="text"
+        class="form-control {{questionForm.submitted && texte.invalid? 'is-invalid': ''}} "
+        [(ngModel)]="question.texte" #texte="ngModel"
+        name="texte"
+        required
+      />
+      <div class="col-md-3 "></div>
+          <div class="invalid-feedback">
+          Question requis
+          </div>
+    </div>
+    <div class="form-group">
+      <label for="list" style="font-weight: bold;">Proposition:</label>
+      <input
+        type="text"
+        class="form-control {{questionForm.submitted && optionsReponse.invalid? 'is-invalid': ''}} "
+        [(ngModel)]="question.optionsReponse" #optionsReponse="ngModel"
+        name="optionsReponse"
+        required
+      />
+      <div class="col-md-3 "></div>
+          <div class="invalid-feedback">
+          Question requis
+          </div>
+    </div>
+
+    <div class="form-group">
+      <label for="selectedExamId" style="font-weight: bold;">Sélectionnez un examen:</label>
+      <select
+            class="browser-default custom-select"
+            [(ngModel)]="selectedExamId"
+            name="idE"
+          >
+            >
+            <option *ngFor="let item of examItems" [value]="item.idE">
+              {{ item.title }}
+            </option>
+          </select>
+    </div>
+    
+
+    <button type="submit" class="btn btn-primary" style="margin-left: 450px;">Ajouter l'questionen</button>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+

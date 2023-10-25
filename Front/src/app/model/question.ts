@@ -1,5 +1,7 @@
 export class Question {
     idQ!: number; 
     texte!: string;
-    optionsReponse!: string[]; 
+    optionsReponse!: string[];
+    exam!:any;
+  
   }

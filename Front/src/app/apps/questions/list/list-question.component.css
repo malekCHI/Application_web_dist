@@ -1,8 +1,8 @@
-/* Add this CSS to your styles.css or styles.scss file */
 .custom-card {
     background-color: rgb(194, 232, 234); 
     border-radius: 20px; /* Optional: Add rounded corners */
     padding: 15px; /* Optional: Add padding to the cards */
     margin-bottom: 20px; /* Optional: Add spacing between cards */
   }
+
   

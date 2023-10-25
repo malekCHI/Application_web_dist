@@ -21,6 +21,11 @@ import { BannerComponent } from './shared/banner/banner.component';
 import { BannerNavigationComponent } from './shared/banner-navigation/banner-navigation.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { EvenementComponent } from './evenement/evenement.component';
+import { ListComponent } from './exams/list-exam/list.component';
+import { DetailsComponent } from './exams/details/details.component';
+import { QuestionsComponent } from './questions/questions.component';
+import { ListQuestionComponent } from './questions/list/list-question.component';
+import { StartComponent } from './exams/quiz/start/start.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,11 @@ import { EvenementComponent } from './evenement/evenement.component';
     BannerNavigationComponent,
     FooterComponent,
     EvenementComponent,
-    //ExamsComponent,
+    ListComponent,
+    DetailsComponent,
+    QuestionsComponent,
+    ListQuestionComponent,
+    StartComponent,
   ],
   imports: [
     CommonModule,

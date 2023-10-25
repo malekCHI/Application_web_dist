@@ -1,0 +1,84 @@
+<div
+  class="static-slider-head"
+  style="background-image: url(assets/images/landingpage/elearning.jpg)"
+>
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-lg-9 col-md-6 align-self-center text-center no-trans">
+        <h1 class="title">Examens</h1>
+        <h5 class="subtitle op-5">Quiz ou Certification</h5>
+
+        <a
+          href="#"
+          class="btn btn-md m-t-30 btn-success-gradiant font-14"
+          target="blank"
+          >Welcome</a
+        >
+      </div>
+      <!-- Column -->
+    </div>
+  </div>
+</div>
+
+<section class="section-padding bg-light-white listing-details" style="margin-top: 30px; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div class="container">
+        <div class="listing-details-inner bx-wrapper bg-custom-white padding-20">
+            <div class="detail-slider-for mb-xl-20 magnific-gallery">
+                <div class="listing-meta-sec mb-md-80">
+                    <div class="tabs">
+                        <ul ngbNav #nav="ngbNav" class="custom-flex nav nav-tabs mb-xl-20">
+                            <li [ngbNavItem]="3">
+                                <a ngbNavLink>Detail de l'examen</a>
+                                <ng-template ngbNavContent>
+                                    <div class="travel-info bg-light-white">
+                                        <div class="row no-gutters">
+                                            <div class="col-sm-12">
+                                                <div class="head padding-20">
+                                                    <h5 class="text-custom-black fs-14 fw-500 no-margin">Titre : {{ exams.title }}</h5>
+                                                </div>
+                                                <div class="head padding-20">
+                                                    <h5 class="text-custom-black fs-14 fw-500 no-margin">Description : {{ exams.description }}</h5>
+                                                </div>
+                                                <div class="head padding-20">
+                                                    <h5 class="text-custom-black fs-14 fw-500 no-margin">Tentatives maximales : {{ exams.maxAttempts }}</h5>
+                                                </div>
+                                                <div class="head padding-20">
+                                                    <h5 class="text-custom-black fs-14 fw-500 no-margin">Type de examen : {{ exams.examType }}</h5>
+                                                </div>
+                                                <div class="head padding-20">
+                                                    <h5 class="text-custom-black fs-14 fw-500 no-margin">Price : {{ exams.price }}</h5>
+                                                </div>
+                                                <div class="head padding-20">
+                                                    <h5 class="text-custom-black fs-14 fw-500 no-margin">Date début : {{ exams.startDate | date: 'dd/MM/yyyy' }}</h5>
+                                                </div>
+                                                <div class="head padding-20">
+                                                    <h5 class="text-custom-black fs-14 fw-500 no-margin">Date fin : {{ exams.endDate | date: 'dd/MM/yyyy' }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="action" style="margin: 0 auto;">
+                                        <a routerLink="/exam-list" class="btn-submit btn-primary form-control-custom">Back</a>
+                                    </div>
+                                </ng-template>
+                            </li>
+                        </ul>
+                        <div [ngbNavOutlet]="nav"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+

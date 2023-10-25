@@ -1,0 +1,77 @@
+<div
+  class="static-slider-head"
+  style="background-image: url(assets/images/landingpage/elearning.jpg)"
+>
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-lg-9 col-md-6 align-self-center text-center no-trans">
+        <h1 class="title">questionens</h1>
+        <h5 class="subtitle op-5">Quiz ou Certification</h5>
+
+        <a
+          href="#"
+          class="btn btn-md m-t-30 btn-success-gradiant font-14"
+          target="blank"
+          >Welcome</a
+        >
+      </div>
+      <!-- Column -->
+    </div>
+  </div>
+</div>
+
+<div class="container spacer">
+  <section class="section-padding bg-light-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="listing-top-heading mb-xl-20">
+            <h6 class="no-margin text-custom-black">Showing All questions</h6>
+            <div class="search-bar">
+              <input type="text" class="form-control form-control-custom" placeholder="Search...">
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+        <div class="col-lg-4 col-md-6" *ngFor="let item of questions">
+          <div class="questions-list mb-xl-30 custom-card">
+            <div class="questions-list-wrapper bx-wrapper">
+            
+              <div class="questions-list-caption padding-20 bg-custom-white p-relative">
+                <div class="heading-sec">
+                  <div class="left-side">
+                    <div class="title">
+                    
+                      <h4 class="fs-16">
+                        <a lass="text-custom-black">{{item.texte}}</a>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="right-side">
+                    <span class="optionsReponse"><small>{{item.optionsReponse}}</small></span>
+                  </div>
+                  <div class="right-side">
+                    <span class="optionsReponse" ><small>{{item}}</small></span>
+                  </div>
+                </div>
+                <div class="action">
+                  <button  class="btn-second btn-small mr-2">View</button>
+                  <button class="btn-second p-button-danger" (click)="deleteQuestion(item.idQ)">Supprimer</button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+

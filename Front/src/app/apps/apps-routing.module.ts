@@ -10,6 +10,12 @@ import { FullComponent } from './layout/full/full.component';
 import { DepartementComponent } from './departement/departement.component';
 import { EvenementComponent } from './evenement/evenement.component';
 import { ExamsComponent } from './exams/exams.component';
+import { ListComponent } from './exams/list-exam/list.component';
+import { DetailsComponent } from './exams/details/details.component';
+import { QuestionsComponent } from './questions/questions.component';
+import { ListQuestionComponent } from './questions/list/list-question.component';
+import { StartComponent } from './exams/quiz/start/start.component';
+
 
 
 const routes: Routes = [
@@ -20,9 +26,16 @@ const routes: Routes = [
       { path: '', component: BlogComponent },
       { path: 'blogDetail/:id', component: BlogDetailComponent },
       { path: 'about', component: AboutComponent },
-      { path: 'examen', component: ExamsComponent},
       { path: 'departement', component: DepartementComponent },
       { path: 'evenement', component: EvenementComponent },
+      { path: 'examen', component: ExamsComponent},
+      { path: 'exam-list', component: ListComponent },
+      { path: 'detail-exam/:id', component: DetailsComponent },
+      { path: 'question-add', component: QuestionsComponent },
+      { path: 'question-list', component: ListQuestionComponent },
+      { path: 'quiz-start', component: StartComponent },
+
+
     ]
   }
 ];

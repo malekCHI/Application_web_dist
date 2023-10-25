@@ -1,0 +1,128 @@
+<div
+  class="banner-innerpage"
+  style="background-image: url(assets/images/landingpage/elearning.jpg)"
+>
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-lg-9 col-md-6 no-trans align-self-center text-center">
+        <h1 class="title">StartQuiz</h1>
+      </div>
+      <!-- Column -->
+    </div>
+  </div>
+</div>
+<section style=" display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;">
+<div class="container spacer">
+    <div class="container" [formGroup]="questionForm" *ngIf="showQuiz">
+      <div class="frame-1-0-0-0-0-0-3-0-0-0">
+        <div
+          *ngFor="let _ of getQuestionRange()"
+          class="rectangle-1-6-1-6"
+          [ngClass]="{ 'color-change': currentQuestionIndex > _ }"
+        ></div>
+      </div>
+  
+      <br /><br />
+  
+      <div *ngIf="currentQuestionIndex <= dataService.questions.length">
+        <strong
+          ><p class="text-1" [attr.id]="'question' + currentQuestionIndex">
+            QUESTION {{ currentQuestionIndex }}/{{ lastQuestionIndex }}
+          </p></strong
+        >
+        <br />
+        <h1 class="text-2">
+          {{ dataService.questions[currentQuestionIndex - 1].question }}
+        </h1>
+        <br /><br />
+  
+        <div
+          *ngFor="
+            let option of dataService.questions[currentQuestionIndex - 1].options
+          "
+          class="group-1-0-0-0-0-0-3-3-2-2 option-item"
+        >
+          <label class="rectangle-1-6-1-5">
+            <input
+              class="radio"
+              type="radio"
+              [value]="option"
+              formControlName="option"
+              (change)="optionSelected(option)"
+              [checked]="option === questionForm.value.option"
+            />
+            <p class="text-3">{{ option }}</p>
+          </label>
+        </div>
+      </div>
+  
+      <div class="button-container">
+        <div class="frame-1-0-0-0-0-0-2-9-9-9">
+          <button
+            class="btn button-size"
+            [disabled]="currentQuestionIndex === 1"
+            (click)="previousQuestion()"
+          >
+            Question précédente
+          </button>
+        </div>
+        <div class="frame-1-0-0-0-0-0-2-9-9-9">
+          <button
+            class="btn button-size"
+            [disabled]="!questionForm.get('option')?.value"
+            *ngIf="currentQuestionIndex < dataService.questions.length"
+            (click)="nextQuestion()"
+          >
+            Question suivante
+          </button>
+          <button
+            class="btn button-size"
+            [disabled]="!questionForm.get('option')?.value"
+            *ngIf="currentQuestionIndex === dataService.questions.length"
+            (click)="validateQuiz()"
+          >
+            Valider mes réponses
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container summary" *ngIf="showSummary">
+      <div>
+        <h1 class="text-an"><u>Récapitulatif des réponses :</u></h1>
+        <br /><br />
+        <div *ngFor="let answer of selectedAnswers; let i = index" class="answer">
+          <strong class="question"
+            >Question {{ i + 1 }}/{{ lastQuestionIndex }}:</strong
+          >
+          {{ dataService.questions[i].question }}<br />
+          <strong>Réponse choisie:</strong> {{ answer }}
+        </div>
+        <div class="button-container">
+          <div class="frame-1-0-0-0-0-0-2-9-9-9">
+            <button (click)="confirmSaveAndSubmit()" class="btn button-size">
+              Enregistrer et envoyer mes réponses
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="confirmation-popup" *ngIf="showConfirmationPopup">
+      <div class="popup-content">
+        <div class="status-icon">
+          <img src="{{ getStatusIcon() }}" alt="Status Icon" />
+        </div>
+        <h2>{{ confirmationMessage }}</h2>
+        <div class="button-container">
+          <button class="btn" (click)="closeConfirmationPopup()">Ok</button>
+        </div>
+      </div>
+    </div>
+</div>
+</section>
