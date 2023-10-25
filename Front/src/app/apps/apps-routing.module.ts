@@ -9,6 +9,8 @@ import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 import { FullComponent } from './layout/full/full.component';
 import { DepartementComponent } from './departement/departement.component';
 import { EvenementComponent } from './evenement/evenement.component';
+import { PostsListComponent } from '../posts-list/posts-list.component';
+import { PostDetailsComponent } from '../post-details/post-details.component';
 
 
 const routes: Routes = [
@@ -21,6 +23,9 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'departement', component: DepartementComponent },
       { path: 'evenement', component: EvenementComponent },
+      { path: 'post', component: PostsListComponent },
+      { path: 'post/:id', component: PostDetailsComponent },
+
     ]
   }
 ];
