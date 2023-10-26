@@ -1,17 +1,132 @@
 version: "24.0.2"
 services:
-  nestback:
-    image: nestback
-    build: ./micro-users-nest
+  
+#Evenement
+  evenementserver:
+    build:
+      context: ./msevenement
+      dockerfile: Dockerfile
     ports:
-      - "4000:3000"
-
+      - "8088:8088"
+    image: "evenementms"
     depends_on:
-      - mongo
+      - eurekaserver
     environment:
-      - MONGO_URI=mongodb://mongo:27017/userdb # Update your database name
+      SPRING_DATASOURCE_URL: jdbc:h2:~/eventdb
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+      eureka.client.serviceUrl.defaultZone: http://eurekaserver:8761/eureka/
+    
+#Administration
+  administrationserver:
+    build:
+      context: ./administration_ms
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8089"
+    image: "administrationms"
+    depends_on:
+      - eurekaserver
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:~/administrationdb
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+      eureka.client.serviceUrl.defaultZone: http://eurekaserver:8761/eureka/
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./API_Gateway_Server
+    ports:
+      - "8108:8108"
+    image: "api-gateway"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:~/administrationdb
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+      eureka.client.serviceUrl.defaultZone: http://eurekaserver:8761/eureka/
+    depends_on:
+      - eurekaserver
+  
+#forumserver
+  forumserver:
+    build:
+      context: ./micro_forum
+      dockerfile: Dockerfile
+    ports:
+      - 8008:8082
+    image: "micro_forum"
+    depends_on:
+      - eurekaserver
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:~/forumdb
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+      eureka.client.serviceUrl.defaultZone: http://eurekaserver:8761/eureka/
+  
 
-  # MongoDB
+
+#eurekaserver
+  eurekaserver:
+    build:
+      context: ./EurekaServer
+    ports:
+      - "8761:8761"
+    image: "eureka"
+    
+
+    
+#examServer
+  examServer:
+    build:
+      context: ./micro-exam
+    ports:
+      - "8701:8085"
+    image: "examserver"
+    depends_on:
+      - eurekaserver
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:mem:examendb
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+      eureka.client.serviceUrl.defaultZone: http://eurekaserver:8761/eureka/
+  
+      
+
+#formationserver 
+  formationserver:
+    build: ./formation_cours_microservice
+    ports:
+      - "8763:8086"
+    image: "formation"
+    depends_on:
+      - eurekaserver
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:mem:formationdb
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+      eureka.client.serviceUrl.defaultZone: http://eurekaserver:8761/eureka/
+  
+
+
+# MongoDB
   mongo:
     image: mongo:latest
     container_name: mongo
@@ -19,3 +134,8 @@ services:
       - "27017:27017"
     volumes:
       - ./data:/data/db
+
+
+networks:
+  backend:
+

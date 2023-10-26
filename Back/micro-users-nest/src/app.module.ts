@@ -12,6 +12,7 @@ import {
 } from 'nest-keycloak-connect';
 import { APP_GUARD } from '@nestjs/core';
 import { UserSchema } from './users/schemas/user.schema';
+import { EurekaModule } from 'nest-eureka';
 
 @Module({
   imports: [
@@ -27,6 +28,21 @@ import { UserSchema } from './users/schemas/user.schema';
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     AuthModule,
     UsersModule,
+    EurekaModule.forRoot({
+      disable: false,
+      disableDiscovery: false,
+      eureka: {
+        host: 'eurekaserver',
+        port: 8761,
+        servicePath: '/eureka/apps',
+        maxRetries: 10,
+        requestRetryDelay: 10000,
+      },
+      service: {
+        name: 'micro-users',
+        port: 3000,
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [

@@ -1,8 +1,5 @@
 FROM openjdk:8
 EXPOSE 8083
+ADD target/micro_forum-0.0.1-SNAPSHOT.jar micro_forum.jar
 
-WORKDIR /app
-
-ADD target/*.jar app.jar
-
-CMD ["java", "-jar", "/app/app.jar"]
+CMD ["java", "-jar", "micro_forum.jar"]
