@@ -8,7 +8,7 @@ import { Departement } from '../model/departement';
 })
 export class DepartementService {
 
-  private apiserverUrl='http://localhost:8083/depatments';
+  private apiserverUrl='http://localhost:8108/ADMINISTRATIONMS/depatments';
   constructor(private http: HttpClient) { }
 
   public addDep(dep :Departement): Observable<Departement>{
