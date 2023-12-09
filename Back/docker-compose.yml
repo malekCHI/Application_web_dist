@@ -1,17 +1,136 @@
 version: "24.0.2"
 services:
-  nestback:
-    image: nestback
-    build: ./micro-users-nest
+  
+#Evenement
+  evenementserver:
+    build:
+      context: ./msevenement
+      dockerfile: Dockerfile
     ports:
-      - "4000:3000"
-
+      - "8600:8088"
+    image: "evenementms"
     depends_on:
-      - mongo
+      - eurekaserver
+      - h2database
+      - api-gateway
     environment:
-      - MONGO_URI=mongodb://mongo:27017/userdb # Update your database name
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - spring.datasource.url=jdbc:h2:mem:eventdb
+      - spring.datasource.username=sa
+      - spring.datasource.password=
+    networks:
+      - backend
+    
+#Administration
+  administrationserver:
+    build:
+      context: ./administration_ms
+      dockerfile: Dockerfile
+    ports:
+      - "8700:8089"
+    image: "administrationms"
+    depends_on:
+      - eurekaserver
+      - h2database
+      - api-gateway
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - spring.datasource.url=jdbc:h2:mem:administrationdb
+      - spring.datasource.username=sa
+      - spring.datasource.password=
+    networks:
+      - backend
 
-  # MongoDB
+
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./API_Gateway_Server
+    ports:
+      - "8108:8108"
+    image: "api-gateway"
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+    depends_on:
+      - eurekaserver
+    networks:
+      - backend
+  
+#forumserver
+  forumserver:
+    build:
+      context: ./micro_forum
+      dockerfile: Dockerfile
+    ports:
+      - 8605:8082
+    image: "micro_forum"
+    depends_on:
+      - eurekaserver
+      - h2database
+      - api-gateway
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - spring.datasource.url=jdbc:h2:mem:forumdb
+      - spring.datasource.username=sa
+      - spring.datasource.password=
+    networks:
+      - backend
+
+
+#eurekaserver
+  eurekaserver:
+    build:
+      context: ./EurekaServer
+    ports:
+      - "8761:8761"
+    image: "eureka"
+    networks:
+      - backend
+
+    
+#examServer
+  examServer:
+    build:
+      context: ./micro-exam
+    ports:
+      - "8701:8085"
+    image: "examserver"
+    depends_on:
+      - eurekaserver
+      - h2database
+      - api-gateway
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - spring.datasource.url=jdbc:h2:mem:examendb
+      - spring.datasource.username=sa
+      - spring.datasource.password=
+    networks:
+      - backend
+    
+      
+
+#formationserver 
+  formationserver:
+    build: ./formation_cours_microservice
+    ports:
+      - "8610:8086"
+    image: "formation"
+    depends_on:
+      - eurekaserver
+      - h2database
+      - api-gateway
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - spring.datasource.url=jdbc:h2:mem:formationdb
+      - spring.datasource.username=sa
+      - spring.datasource.password=
+    networks:
+      - backend
+
+
+
+# MongoDB
   mongo:
     image: mongo:latest
     container_name: mongo
@@ -19,3 +138,39 @@ services:
       - "27017:27017"
     volumes:
       - ./data:/data/db
+    networks:
+      - backend
+# h2
+  h2database:
+    image: "buildo/h2database"
+    ports:
+      - "8710:8089"
+      - "8705:8088"
+      - "8709:8082"
+      - "8702:8085"
+      - "8706:8086"
+    environment:
+      - H2_CONSOLE=true
+      - H2_BIND_ADDRESS=0.0.0.0
+      - H2_TCP_ALLOW_OTHERS=true
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+volumes:
+  postgres-data:
+
+
+
+
+
+
+
+
+
+
+
+
+

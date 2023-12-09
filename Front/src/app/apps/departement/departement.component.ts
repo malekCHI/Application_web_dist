@@ -44,6 +44,7 @@ deleteDep(idEvent : any){
     this.depserv.getDeps().subscribe(  
       (response : Departement[]) =>{
         this.departements=response
+        console
         console.log(response)
       },(error :HttpErrorResponse)=>{
         alert(error.message);

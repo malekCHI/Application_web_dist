@@ -32,6 +32,7 @@
     "keycloak-admin": "^1.14.22",
     "keycloak-connect": "^22.0.4",
     "mongoose": "^6.2.2",
+    "nest-eureka": "^2.0.0",
     "nest-keycloak-connect": "^1.9.2",
     "nodemailer": "^6.9.6",
     "passport": "^0.6.0",
